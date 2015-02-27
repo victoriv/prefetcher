@@ -61,7 +61,7 @@
 % \documentclass[journal]{../sty/IEEEtran}
 
 
-
+\usepackage[utf8]{inputenc}
 
 
 % Some very useful LaTeX packages include:
@@ -439,9 +439,9 @@ and~Victor~Iversen}
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
-\begin{IEEEkeywords}
-IEEEtran, journal, \LaTeX, paper, template.
-\end{IEEEkeywords}
+%\begin{IEEEkeywords}
+%IEEEtran, journal, \LaTeX, paper, template.
+%\end{IEEEkeywords}
 
 
 
@@ -463,7 +463,7 @@ IEEEtran, journal, \LaTeX, paper, template.
 \section{Introduction}
     \input{introduction}
 
-\section{Bacground}
+\section{Background}
     \input{background}
 
 \section{The Scheme}
@@ -602,13 +602,11 @@ IEEEtran, journal, \LaTeX, paper, template.
 
 
 \appendices
-\section{Proof of the First Zonklar Equation}
+\section{}
 Appendix one text goes here.
 
 % you can choose not to have a title for an appendix
 % if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
 
 
 
@@ -645,9 +643,9 @@ Appendix two text goes here.
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{Grannaes}
+M.~Grann\ae s, \emph{Reducing Memory Latency by Improving Resource Utilization}.\hskip 1em plus
+  0.5em minus 0.4em\relax Trondheim, Norway: NTNU-trykk, 2010.
 
 \end{thebibliography}
 
