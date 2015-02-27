@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.4)  27 FEB 2015 11:48
+=======
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.16)  22 FEB 2015 22:50
+>>>>>>> 3ba04dfd71e322f1791d081b5c103778915c998a
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**\nonstopmode \input{report.tex}
-(./report.tex (./IEEEtran.cls
+**report.tex
+(./report.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 2 languages loaded.
+(./IEEEtran.cls
 Document Class: IEEEtran 2014/09/17 V1.8a by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
@@ -351,6 +358,7 @@ LaTeX Font Info:    ... okay on input line 359.
 ]
 (./report.aux) ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  1245 strings out of 493304
  20659 string characters out of 6139872
  74606 words of memory out of 5000000
@@ -358,6 +366,15 @@ Here is how much of TeX's memory you used:
  36230 words of font info for 66 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
  27i,5n,19p,222b,166s stack positions out of 5000i,500n,10000p,200000b,80000s
+=======
+ 1068 strings out of 495028
+ 19102 string characters out of 6181497
+ 68100 words of memory out of 5000000
+ 4309 multiletter control sequences out of 15000+600000
+ 43411 words of font info for 80 fonts, out of 8000000 for 9000
+ 17 hyphenation exceptions out of 8191
+ 26i,5n,19p,201b,208s stack positions out of 5000i,500n,10000p,200000b,80000s
+>>>>>>> 3ba04dfd71e322f1791d081b5c103778915c998a
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
 r/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fo
