@@ -15,6 +15,9 @@
 
 using namespace std;
 
+/* constants */
+const Addr max_addr = 268435455;
+
 /* Data structures */
 struct MyStat {
     Addr mem_addr;
@@ -28,6 +31,7 @@ map<Addr, MyStat> mymap;
 int stride;
 int confidence;
 Addr remove_pc;
+Addr pf_addr;
 deque<Addr>::iterator it;
 
 void prefetch_init(void)
@@ -75,9 +79,9 @@ void prefetch_access(AccessStat stat)
         // remove LRU element if structures are full
         if (mydeque.size() >= 400) {
 
-            remove_pc = mydeque.front();
+            remove_pc = mydeque.back();
             DPRINTF(HWPrefetch, "REMOVING FROM STRUCTURES, PC: %d\n", remove_pc);
-            mymap.erase(mydeque.front());
+            mymap.erase(remove_pc);
             mydeque.pop_back();
         }
     }
@@ -101,7 +105,10 @@ void prefetch_access(AccessStat stat)
      */
 
     for (int i = 1; i <= confidence; i++) {
-        issue_prefetch(stat.mem_addr + i*stride);
+        pf_addr = stat.mem_addr + i*stride;
+        if (pf_addr <= max_addr) {
+            issue_prefetch(pf_addr);
+        }
     }
     //issue_prefetch(stat.mem_addr + 2*stride);
 
