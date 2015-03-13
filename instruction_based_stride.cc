@@ -13,23 +13,24 @@
 #include <deque>
 #include <algorithm>
 
+#define max_confidence 10
+#define max_entries 242
+
 using namespace std;
 
-/* constants */
-const Addr max_addr = 268435455;
 
 /* Data structures */
 struct MyStat {
     Addr mem_addr;
-    int stride;
+    int64_t stride;
     int confidence;
 };
 
 deque<Addr> mydeque;
 map<Addr, MyStat> mymap;
 
-int stride;
-int confidence;
+int64_t stride;
+char confidence;
 Addr remove_pc;
 Addr pf_addr;
 deque<Addr>::iterator it;
@@ -58,7 +59,7 @@ void prefetch_access(AccessStat stat)
         // calculate confidence
         if (stride == mymap[stat.pc].stride) {
             // stride unchanged
-            if (mymap[stat.pc].confidence < 10) {
+            if (mymap[stat.pc].confidence < max_confidence) {
                 confidence = mymap[stat.pc].confidence + 1;
             }
             else {
@@ -69,7 +70,7 @@ void prefetch_access(AccessStat stat)
         // delete old reference from deque
         it = find(mydeque.begin(), mydeque.end(), stat.pc);
         if (it != mydeque.end()) {
-            DPRINTF(HWPrefetch, "MOVING TO TOP OF DEQUE, PC: %d\n", *it);
+            DPRINTF(HWPrefetch, "MOVING TO TOP OF DEQUE, pc= %d\n", *it);
             mydeque.erase(it);
         }
     }
@@ -77,10 +78,10 @@ void prefetch_access(AccessStat stat)
         //DPRINTF(HWPrefetch, "SIZE OF DEQUE: %d, SIZE OF MAP: %d\n", mydeque.size(), mymap.size());
         // entry not found
         // remove LRU element if structures are full
-        if (mydeque.size() >= 400) {
+        if (mydeque.size() >= max_entries) {
 
             remove_pc = mydeque.back();
-            DPRINTF(HWPrefetch, "REMOVING FROM STRUCTURES, PC: %d\n", remove_pc);
+            DPRINTF(HWPrefetch, "REMOVING FROM STRUCTURES, pc= %d\n", remove_pc);
             mymap.erase(remove_pc);
             mydeque.pop_back();
         }
@@ -95,7 +96,7 @@ void prefetch_access(AccessStat stat)
     mymap[stat.pc] = entry;
     mydeque.push_front(stat.pc);
 
-    DPRINTF(HWPrefetch, "PC: %d, MemAddr: %d, Stride: %d, Confidence: %d\n", stat.pc, stat.mem_addr, stride, confidence);
+    DPRINTF(HWPrefetch, "UPDATING ENTRY: pc= %d, mem_addr= %d, stride= %d, confidence= %d\n", stat.pc, stat.mem_addr, stride, confidence);
 
     //Addr pf_addr = stat.mem_addr + stride; // + BLOCK_SIZE;
 
@@ -104,9 +105,13 @@ void prefetch_access(AccessStat stat)
      * and the block is not already in cache.
      */
 
+    if (confidence > 0) {
+        DPRINTF(HWPrefetch, "PREFETCH: mem_addr= %d, stride= %d, confidence= %d\n", stat.mem_addr, stride, confidence);
+    }
+
     for (int i = 1; i <= confidence; i++) {
         pf_addr = stat.mem_addr + i*stride;
-        if (pf_addr <= max_addr) {
+        if (pf_addr <= MAX_PHYS_MEM_ADDR && current_queue_size() < MAX_QUEUE_SIZE ) {
             issue_prefetch(pf_addr);
         }
     }
