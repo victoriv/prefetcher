@@ -8,18 +8,27 @@ reference = ones(1,11)
 reference_x = 1:1:11
 x = 1:11;
 
+speedups_comb = zeros(11,4);
+
+for i = 1:11
+    speedups_comb(i,1) = speedups_conf_1(i);
+    speedups_comb(i,2) = speedups_conf_5(i);
+    speedups_comb(i,3) = speedups_conf_10(i);
+    speedups_comb(i,4) = speedups_conf_20(i);
+end
 
 
 % Plot the data.
-h = plot(x,speedups_conf_1,'-sb');
-hold on;
-h = plot(x,speedups_conf_5,'-sr');
-h = plot(x,speedups_conf_10,'-sg');
-h = plot(x,speedups_conf_20,'-sm');
-h = plot(reference_x,reference,'--k');
-legend('maximum degree = 1', 'maximum degree = 5', 'maximum degree = 10', 'maximum degree = 20')
+h = bar(speedups_comb);
+%hold on;
+%h = plot(x,speedups_conf_5,'-sr');
+%h = plot(x,speedups_conf_10,'-sg');
+%h = plot(x,speedups_conf_20,'-sm');
+%h = plot(reference_x,reference,'--k');
+legend({'maximum degree = 1', 'maximum degree = 5', 'maximum degree = 10', 'maximum degree = 20'}, 'Position', [0.27, 0.65, 0.3, 0.15])
 ylabel('Speedup')
-hold off;
+grid on;
+%hold off;
 
 % Reduce the size of the axis so that all the labels fit in the figure.
 pos = get(gca,'Position');
@@ -31,7 +40,7 @@ set(gca,'Position',[pos(1), .2, pos(3) .65])
 % Set the X-Tick locations so that every other month is labeled.
 Xt = 1:1:11;
 Xl = [1 11];
-set(gca,'XTick',Xt,'XLim',Xl);
+%set(gca,'XTick',Xt,'XLim',Xl);
 
 % Add the months as tick labels.
 benchmarks = ['          ammp'; '         applu'; '          apsi'; '        art110'; '        art470'; 'bzip2\_program'; '  bzip\_source'; '        galgel'; '          swim'; '         twolf'; '       wupwise'];

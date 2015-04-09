@@ -13,7 +13,7 @@
 #include <deque>
 #include <algorithm>
 
-#define max_confidence 10
+#define max_confidence 5
 #define max_entries 242
 
 using namespace std;
